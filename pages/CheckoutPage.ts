@@ -1,7 +1,4 @@
 import { Page, Locator } from "@playwright/test"
-import { expect } from "@playwright/test"
-import { Navigation } from "../utils/Navigation"
-import { format } from "util"
 
 export class CheckoutPage {
 	private page: Page
@@ -16,6 +13,13 @@ export class CheckoutPage {
 		this.page = page
 	}
 
+	/**
+	 *
+	 * This method returns a locator for element,
+	 * allowing the caller to perform further actions or assertions on it.
+	 *
+	 * @returns {Locator}
+	 */
 	getTitleOfThePage(): Locator {
 		return this.page.locator(this.pageSubHeader)
 	}
@@ -24,17 +28,24 @@ export class CheckoutPage {
 		firstName: string,
 		lastName: string,
 		postalCode: string
-	) {
+	): Promise<void> {
 		await this.page.fill(this.inputFirstName, firstName)
 		await this.page.fill(this.inputLastName, lastName)
 		await this.page.fill(this.inputPostalCode, postalCode)
 		await this.page.click(this.checkoutButton)
 	}
 
-	async finishCheckout() {
+	async finishCheckout(): Promise<void> {
 		await this.page.click(this.checkoutButton)
 	}
 
+	/**
+	 *
+	 * This method returns a locator for element,
+	 * allowing the caller to perform further actions or assertions on it.
+	 *
+	 * @returns {Locator}
+	 */
 	getConfirmationMessage(): Locator {
 		return this.page.locator(this.orderConfirmationMessage)
 	}

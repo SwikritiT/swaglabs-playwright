@@ -1,28 +1,22 @@
 import { test, expect } from "@playwright/test"
-import { LoginPage } from "../pages/LoginPage"
 import { InventoryPage } from "../pages/InventoryPage"
 import { CartPage } from "../pages/CartPage"
-import { SideBar } from "../pages/Sidebar"
-import * as users from "../data/userCredentials.json"
 import { multipleItemsToBeAddedInTheCart } from "../data/cartData"
 import { SortTypes } from "../data/sortType"
 import { sortArray } from "../utils/sortHelper"
+import { login, cleanup } from "../utils/authHelper"
 
 test.describe("Inventory Feature", async () => {
-	let loginPage: LoginPage
 	let inventoryPage: InventoryPage
 	let cartPage: CartPage
 
 	test.beforeEach(async ({ page }) => {
-		loginPage = new LoginPage(page)
 		inventoryPage = new InventoryPage(page)
 		cartPage = new CartPage(page)
-		// Navigate to the Login page
-		await loginPage.navigateToLoginPage()
-		await loginPage.login(users.valid_username, users.password)
+		await login(page)
 	})
 
-	test("filter products by size and price", async () => {
+	test("Standard user filters products by size and price", async () => {
 		// get the initial name and prices of the items in the page, i.e. before sorting
 		const initialItemNames = await inventoryPage.getTitlesOfAllTheInventoryItemInThePage()
 		const initialItemPrices = await inventoryPage.getPricesOfAllTheInventoryItemInThePage()
@@ -47,12 +41,11 @@ test.describe("Inventory Feature", async () => {
 
 	})
 
-	test("add items to the cart", async () => {
+	test("Standard user adds items to the cart", async () => {
 		// add the above items to the cart
 		for (const item of multipleItemsToBeAddedInTheCart) {``
 			await inventoryPage.addItemToCart(item)
 		}
-
 		// go to the cart page by clicking the cart icon as it's closer to the actual user action
 		await inventoryPage.goToCartPage()
 		// get the titles of all the items that were added in the cart
@@ -62,12 +55,6 @@ test.describe("Inventory Feature", async () => {
 	})
 
 	test.afterEach(async ({ page }) => {
-		// cleanup after test
-		const sidebarPage = new SideBar(page)
-		await sidebarPage.openSidebar()
-		// reset app state because AUT should be in the same state as it was when the test started
-		await sidebarPage.resetAppState()
-		// logout at the end
-		await sidebarPage.logout()
+		await cleanup(page)
 	})
 })

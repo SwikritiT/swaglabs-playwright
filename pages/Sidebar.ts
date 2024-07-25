@@ -10,15 +10,15 @@ export class SideBar {
 		this.page = page
 	}
 
-	async openSidebar() {
+	async openSidebar(): Promise<void> {
 		await this.page.click(this.sidebarMenu)
 	}
 
-	async resetAppState() {
+	async resetAppState(): Promise<void> {
 		await this.page.click(this.resetAppStateButton)
 	}
 
-	async logout() {
+	async logout(): Promise<void> {
 		await this.page.click(this.logoutButton)
 	}
 }

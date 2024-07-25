@@ -1,6 +1,4 @@
-import { Page, Locator } from "@playwright/test"
-import { Navigation } from "../utils/Navigation"
-import { format } from "util"
+import { Page } from "@playwright/test"
 
 export class CartPage {
 	private page: Page
@@ -16,7 +14,7 @@ export class CartPage {
 		return this.page.locator(this.cartItemName).allTextContents()
 	}
 
-	async proceedCheckout() {
+	async proceedCheckout(): Promise<void> {
 		await this.page.click(this.checkoutButton)
 	}
 }
