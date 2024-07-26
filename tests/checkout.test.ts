@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { test, expect, Page } from "@playwright/test"
 import { InventoryPage } from "../pages/InventoryPage"
 import { CartPage } from "../pages/CartPage"
 import { CheckoutPage } from "../pages/CheckoutPage"
@@ -10,7 +10,7 @@ test.describe("Inventory Feature", async () => {
 	let cartPage: CartPage
 	let checkoutpage: CheckoutPage
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeEach(async ({ page }: { page: Page }) => {
 		// setup test
 		inventoryPage = new InventoryPage(page)
 		cartPage = new CartPage(page)
@@ -46,7 +46,7 @@ test.describe("Inventory Feature", async () => {
 		)
 	})
 
-	test.afterEach(async ({ page }) => {
+	test.afterEach(async ({ page }: { page: Page }) => {
 		await cleanup(page)
 	})
 })

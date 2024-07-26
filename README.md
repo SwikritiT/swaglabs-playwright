@@ -139,6 +139,18 @@ If the test execution is too fast to follow, you can slow it down by setting the
 SLOW_MO=1000 PLAYWRIGHT_HEADLESS=false WORKERS=1 npm run test:e2e
 ```
 
+### 8. View test report
+Playwright's built in test report tool is enabled that shows test report in `htlm`. The test report can be accesssed using
+
+```bash
+npx playwright show-report
+```
+
+The test report would look something like this
+
+![test report](testReport.png)
+
+
 ## Additional Information
 
 Playwright has built-in auto-wait functionality, so explicit waits are generally not needed in the tests. For more information, please refer to the [Playwright Actionability](https://playwright.dev/docs/actionability) documentation.

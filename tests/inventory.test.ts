@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { test, expect, Page} from "@playwright/test"
 import { InventoryPage } from "../pages/InventoryPage"
 import { CartPage } from "../pages/CartPage"
 import { multipleItemsToBeAddedInTheCart } from "../data/cartData"
@@ -10,7 +10,7 @@ test.describe("Inventory Feature", async () => {
 	let inventoryPage: InventoryPage
 	let cartPage: CartPage
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeEach(async ({ page }: { page: Page }) => {
 		inventoryPage = new InventoryPage(page)
 		cartPage = new CartPage(page)
 		await login(page)
@@ -41,20 +41,20 @@ test.describe("Inventory Feature", async () => {
 
 	})
 
-	test("Standard user adds items to the cart", async () => {
+	test("Standard user adds items to the cart", async ({browserName}) => {
 		// add the above items to the cart
-		for (const item of multipleItemsToBeAddedInTheCart) {``
+		for (const item of multipleItemsToBeAddedInTheCart) {
 			await inventoryPage.addItemToCart(item)
 		}
 		// go to the cart page by clicking the cart icon as it's closer to the actual user action
 		await inventoryPage.goToCartPage()
 		// get the titles of all the items that were added in the cart
-		const actualItemsAddedInTheCart = await cartPage.getItemsInTheCart()
+		const actualItemsAddedInTheCart = await cartPage.getItemsInTheCart(browserName)
 		// assert that both arrays are equal
 		expect(actualItemsAddedInTheCart).toEqual(multipleItemsToBeAddedInTheCart)
 	})
 
-	test.afterEach(async ({ page }) => {
+	test.afterEach(async ({ page }: { page: Page }) => {
 		await cleanup(page)
 	})
 })

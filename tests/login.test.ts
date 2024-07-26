@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { test, expect, Page } from "@playwright/test"
 import { LoginPage } from "../pages/LoginPage"
 import * as users from "../data/userCredentials.json"
 import { login, cleanup } from "../utils/authHelper"
@@ -6,13 +6,13 @@ import { login, cleanup } from "../utils/authHelper"
 test.describe("Login Feature", async () => {
 	let loginPage: LoginPage
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeEach(async ({ page }: { page: Page }) => {
 		loginPage = new LoginPage(page)
 		// Navigate to the Login page
 		await loginPage.navigateToLoginPage()
 	})
 
-	test("Login with an Invalid User", async ({ page }) => {
+	test("Login with an Invalid User", async ({ page }: { page: Page }) => {
 		// fill out the login form with invalid user details
 		await loginPage.login(users.invalid_username, users.password)
 		// get the element with error message
@@ -26,7 +26,7 @@ test.describe("Login Feature", async () => {
 		await page.close()
 	})
 
-	test("Login with a valid User", async ({ page }) => {
+	test("Login with a valid User", async ({ page }: { page: Page }) => {
 		// login withstandard user
 		await login(page)
 		// clean up the changes made by test and logout
