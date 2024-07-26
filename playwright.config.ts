@@ -30,8 +30,8 @@ export default defineConfig({
 		trace: "on-first-retry",
 	},
 
-	/* Configure projects for major browsers, currently only enabled for chromium but you can enable 
-		test exection in other browsers by uncommenting the given lines. Depending on the operating system used
+	/* Configure projects for major browsers, currently only enabled for chromium for local setup but you can enable 
+		test exection in other browsers removing the check for is CI. Depending on the operating system used
 		extra host package installation might be necessary for correct browser to work
 	*/
 	projects: [
@@ -46,27 +46,28 @@ export default defineConfig({
 				},
 			},
 		},
-		// {
-		// 	name: "firefox",
-		// 	use: {
-		// 		...devices["Desktop Firefox"],
-		// 		headless: process.env.PLAYWRIGHT_HEADLESS !== "false", // Set headless based on the environment variable
-		// 		launchOptions: {
-		// 			slowMo: parseInt(process.env.SLOW_MO ?? "0", 10) || 0,
-		// 			timeout: parseInt(process.env.TIMEOUT ?? "60000", 10) || 60000,
-		// 		},
-		// 	},
-		// },
-		// {
-		// 	name: "webkit",
-		// 	use: {
-		// 		...devices["Desktop Safari"],
-		// 		headless: process.env.PLAYWRIGHT_HEADLESS !== "false", // Set headless based on the environment variable
-		// 		launchOptions: {
-		// 			slowMo: parseInt(process.env.SLOW_MO ?? "0", 10) || 0,
-		// 			timeout: parseInt(process.env.TIMEOUT ?? "60000", 10) || 60000,
-		// 		},
-		// 	},
-		// },
+		...(process.env.CI === 'true'
+		? [{
+			name: "firefox",
+			use: {
+				...devices["Desktop Firefox"],
+				headless: process.env.PLAYWRIGHT_HEADLESS !== "false", // Set headless based on the environment variable
+				launchOptions: {
+					slowMo: parseInt(process.env.SLOW_MO ?? "0", 10) || 0,
+					timeout: parseInt(process.env.TIMEOUT ?? "60000", 10) || 60000,
+				},
+			},
+		},
+		{
+			name: "webkit",
+			use: {
+				...devices["Desktop Safari"],
+				headless: process.env.PLAYWRIGHT_HEADLESS !== "false", // Set headless based on the environment variable
+				launchOptions: {
+					slowMo: parseInt(process.env.SLOW_MO ?? "0", 10) || 0,
+					timeout: parseInt(process.env.TIMEOUT ?? "60000", 10) || 60000,
+				},
+			},
+		},] : []),
 	],
 })

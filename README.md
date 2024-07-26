@@ -133,7 +133,7 @@ Set the `PLAYWRIGHT_HEADLESS` environment variable to `false` to run tests in he
 PLAYWRIGHT_HEADLESS=false npm run test:e2e
 ```
 
-> **Note:** Currently, tests are configured to run only in the `chromium` browser. The steup for `firefox`, and `webkit` browser is also done in the config file but is commented. Please uncomment those lines if you want to run other browsers as well. One thing to note is depending on the operating system used extra host package installation might be necessary for correct browser to work
+> **Note:** Currently, tests are configured to run only in the `chromium` browser. The setup for `firefox`, and `webkit` browser is also done in the config file but is enabled only for CI. Please remove the check for CI if you want to run other browsers as well. One thing to note is depending on the operating system used extra host package installation might be necessary for correct browser to work
 
 ### 6. Run with a Single Worker
 
@@ -151,7 +151,7 @@ If the test execution is too fast to follow, you can slow it down by setting the
 SLOW_MO=1000 PLAYWRIGHT_HEADLESS=false WORKERS=1 npm run test:e2e
 ```
 
-### 8. View test report with playwright's default html reporter 
+### 8. View test report with playwright's default html reporter
 
 Playwright's built in test report tool is enabled that shows test report in `html`. The test report can be accesssed using
 
@@ -163,12 +163,16 @@ The test report would look something like this
 
 ![test report](testReport.png)
 
-### 8. View test report with allure playwright reporter 
-[Allure's playwright](https://allurereport.org/docs/playwright/) test reporter is also set-up which can be accessed with 
+### 8. View test report with allure playwright reporter
+
+[Allure's playwright](https://allurereport.org/docs/playwright/) test reporter is also set-up which can be accessed with
 
 ```
 npx allure serve allure-results
 ```
+
+The test report looks something like this
+![Allure test report](test-report-allure.png)
 
 ### 9. Retry test
 

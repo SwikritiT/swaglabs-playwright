@@ -1,4 +1,5 @@
 import { Page, Locator } from "@playwright/test"
+import { format } from "util"
 
 export class InventoryPage {
 	readonly page: Page
@@ -7,7 +8,7 @@ export class InventoryPage {
 	readonly inventoryItemPrice = ".inventory_item_price"
 	readonly inventoryItemsList = ".inventory_item"
 	// there was no direct selector to add items as per name so the xpath goes from child to parent i.e. navigate up the DOM tree
-	// private addToCartButton =
+	// readonly addToCartButton =
 	// 	"//div[contains(@class,'inventory_item_name') and text()='%s']/ancestor::div[@class='inventory_item_label']" +
 	// 	"/following-sibling::div[@class='pricebar']/button[@class='btn_primary btn_inventory']"
 	readonly shoppingCartIcon = ".shopping_cart_link"
@@ -52,7 +53,13 @@ export class InventoryPage {
 	async addItemToCart(itemName: string): Promise<void> {
 		const item = this.page.locator(this.inventoryItemsList).filter({ hasText: itemName })
 		const addToCartButton = item.locator(this.page.getByRole('button', { name: 'ADD TO CART'}))
+		await addToCartButton.waitFor( {
+			state: "visible",
+		})
 		await addToCartButton.click()
+
+		// In this approach the xpath is from child to parent
+		// await this.page.locator(format(this.addToCartButton, itemName)).click()
 	}
 
 	async goToCartPage(): Promise<void> {
