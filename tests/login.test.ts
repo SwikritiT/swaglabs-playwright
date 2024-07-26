@@ -24,7 +24,7 @@ test.describe("Login Feature", async () => {
 
 		// verify that correct error message is displayed
 		await expect(errorMessage).toHaveText(
-			"Epic sadface: Sorry, this user has been locked out."
+			"Epic happyface: Sorry, this user has been locked out."
 		)
 
 		await page.close()
