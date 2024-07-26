@@ -59,6 +59,13 @@ The `playwright-report` directory contains the HTML reporter generated after a t
 │  └─ index.html
 ```
 
+Similarly, Allure's playwright test report tool is also enabled and can be folund in. Allure report can also be served in html and it provides comprehensive report of the tests execution.
+
+```bash
+├─ allure-results
+│  └─ some-json-file.json
+```
+
 ### `playwright.config.ts`
 
 The `playwright.config.ts` file is the main configuration file for Playwright.
@@ -144,9 +151,9 @@ If the test execution is too fast to follow, you can slow it down by setting the
 SLOW_MO=1000 PLAYWRIGHT_HEADLESS=false WORKERS=1 npm run test:e2e
 ```
 
-### 8. View test report
+### 8. View test report with playwright's default html reporter 
 
-Playwright's built in test report tool is enabled that shows test report in `htlm`. The test report can be accesssed using
+Playwright's built in test report tool is enabled that shows test report in `html`. The test report can be accesssed using
 
 ```bash
 npx playwright show-report
@@ -155,6 +162,13 @@ npx playwright show-report
 The test report would look something like this
 
 ![test report](testReport.png)
+
+### 8. View test report with allure playwright reporter 
+[Allure's playwright](https://allurereport.org/docs/playwright/) test reporter is also set-up which can be accessed with 
+
+```
+npx allure serve allure-results
+```
 
 ### 9. Retry test
 
