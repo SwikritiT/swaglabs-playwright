@@ -1,17 +1,17 @@
 import { Page, Locator } from "@playwright/test"
-import { format } from "util"
 
 export class InventoryPage {
-	private page: Page
-	private pageTitle = ".product_label"
-	private inventoryItemName = ".inventory_item_name"
-	private inventoryItemPrice = ".inventory_item_price"
+	readonly page: Page
+	readonly pageTitle = ".product_label"
+	readonly inventoryItemName = ".inventory_item_name"
+	readonly inventoryItemPrice = ".inventory_item_price"
+	readonly inventoryItemsList = ".inventory_item"
 	// there was no direct selector to add items as per name so the xpath goes from child to parent i.e. navigate up the DOM tree
-	private addToCartButton =
-		"//div[contains(@class,'inventory_item_name') and text()='%s']/ancestor::div[@class='inventory_item_label']" +
-		"/following-sibling::div[@class='pricebar']/button[@class='btn_primary btn_inventory']"
-	private shoppingCartIcon = ".shopping_cart_link"
-	private sortSelect = ".product_sort_container"
+	// private addToCartButton =
+	// 	"//div[contains(@class,'inventory_item_name') and text()='%s']/ancestor::div[@class='inventory_item_label']" +
+	// 	"/following-sibling::div[@class='pricebar']/button[@class='btn_primary btn_inventory']"
+	readonly shoppingCartIcon = ".shopping_cart_link"
+	readonly sortSelect = ".product_sort_container"
 
 	constructor(page: Page) {
 		this.page = page
@@ -49,9 +49,10 @@ export class InventoryPage {
 		await this.page.locator(this.sortSelect).selectOption(sortType)
 	}
 
-	async addItemToCart(item: string): Promise<void> {
-		// replace the string in the selector with the item with the help of `format`
-		await this.page.locator(format(this.addToCartButton, item)).click()
+	async addItemToCart(itemName: string): Promise<void> {
+		const item = this.page.locator(this.inventoryItemsList).filter({ hasText: itemName })
+		const addToCartButton = item.locator(this.page.getByRole('button', { name: 'ADD TO CART'}))
+		await addToCartButton.click()
 	}
 
 	async goToCartPage(): Promise<void> {

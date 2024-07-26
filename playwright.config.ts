@@ -4,7 +4,7 @@ const workers = process.env.WORKERS
 	? parseInt(process.env.WORKERS, 10)
 	: undefined
 
-	const retries = process.env.RETRIES ? parseInt(process.env.RETRIES, 10): 1
+	const retries = process.env.RETRIES ? parseInt(process.env.RETRIES, 10): 0
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -15,7 +15,7 @@ export default defineConfig({
 	fullyParallel: true,
 	/* Fail the build on CI if you accidentally left test.only in the source code. */
 	forbidOnly: !!process.env.CI,
-	/* Retry on CI two times and on local 1 times or based on env var */
+	/* Retry only on CI and on local based on env var */
 	retries: process.env.CI ? 2 : retries,
 	/* Opt out of parallel tests on CI. */
 	workers: process.env.CI ? 1 : workers,
@@ -30,7 +30,10 @@ export default defineConfig({
 		trace: "on-first-retry",
 	},
 
-	/* Configure projects for major browsers, currently only set for chromium */
+	/* Configure projects for major browsers, currently only enabled for chromium but you can enable 
+		test exection in other browsers by uncommenting the given lines. Depending on the operating system used
+		extra host package installation might be necessary for correct browser to work
+	*/
 	projects: [
 		{
 			name: "chromium",
@@ -43,27 +46,27 @@ export default defineConfig({
 				},
 			},
 		},
-		{
-			name: "firefox",
-			use: {
-				...devices["Desktop Firefox"],
-				headless: process.env.PLAYWRIGHT_HEADLESS !== "false", // Set headless based on the environment variable
-				launchOptions: {
-					slowMo: parseInt(process.env.SLOW_MO ?? "0", 10) || 0,
-					timeout: parseInt(process.env.TIMEOUT ?? "60000", 10) || 60000,
-				},
-			},
-		},
-		{
-			name: "webkit",
-			use: {
-				...devices["Desktop Safari"],
-				headless: process.env.PLAYWRIGHT_HEADLESS !== "false", // Set headless based on the environment variable
-				launchOptions: {
-					slowMo: parseInt(process.env.SLOW_MO ?? "0", 10) || 0,
-					timeout: parseInt(process.env.TIMEOUT ?? "60000", 10) || 60000,
-				},
-			},
-		},
+		// {
+		// 	name: "firefox",
+		// 	use: {
+		// 		...devices["Desktop Firefox"],
+		// 		headless: process.env.PLAYWRIGHT_HEADLESS !== "false", // Set headless based on the environment variable
+		// 		launchOptions: {
+		// 			slowMo: parseInt(process.env.SLOW_MO ?? "0", 10) || 0,
+		// 			timeout: parseInt(process.env.TIMEOUT ?? "60000", 10) || 60000,
+		// 		},
+		// 	},
+		// },
+		// {
+		// 	name: "webkit",
+		// 	use: {
+		// 		...devices["Desktop Safari"],
+		// 		headless: process.env.PLAYWRIGHT_HEADLESS !== "false", // Set headless based on the environment variable
+		// 		launchOptions: {
+		// 			slowMo: parseInt(process.env.SLOW_MO ?? "0", 10) || 0,
+		// 			timeout: parseInt(process.env.TIMEOUT ?? "60000", 10) || 60000,
+		// 		},
+		// 	},
+		// },
 	],
 })

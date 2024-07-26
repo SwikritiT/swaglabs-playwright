@@ -2,12 +2,12 @@ import { Page, Locator } from "@playwright/test"
 import { Navigation } from "../utils/Navigation"
 
 export class LoginPage {
-	private page: Page
-	private navigation: Navigation
-	private usernameInput = "[data-test='username']"
-	private passwordInput = "[data-test='password']"
-	private loginButton = "#login-button"
-	private errorMessage = "[data-test='error']"
+	readonly page: Page
+	readonly navigation: Navigation
+	readonly usernameInput = "[data-test='username']"
+	readonly passwordInput = "[data-test='password']"
+	readonly loginButton = "#login-button"
+	readonly errorMessage = "[data-test='error']"
 
 	constructor(page: Page) {
 		this.page = page

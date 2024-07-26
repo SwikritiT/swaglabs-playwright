@@ -25,21 +25,28 @@ test.describe("Inventory Feature", async () => {
 		}
 		await inventoryPage.goToCartPage()
 		// proceed the checkout from cart page
+
 		await cartPage.proceedCheckout()
 		// verfiy that the page is navigated to next one
+
 		expect(await checkoutpage.getTitleOfThePage()).toHaveText(
 			"Checkout: Your Information"
 		)
+
 		// fill the billing info and proceed checkout
 		await checkoutpage.fillCheckoutForm("standard", "user", "1234")
+
 		// make sure that the page has navigated to final checkout page
 		expect(await checkoutpage.getTitleOfThePage()).toHaveText(
 			"Checkout: Overview"
 		)
+
 		// finish the checkout
 		await checkoutpage.finishCheckout()
+
 		// check that the page navigated to final confirmation page
 		expect(await checkoutpage.getTitleOfThePage()).toHaveText("Finish")
+
 		// check the confirmation message
 		expect(await checkoutpage.getConfirmationMessage()).toHaveText(
 			"Your order has been dispatched, and will arrive just as fast as the pony can get there!"

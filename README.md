@@ -2,10 +2,10 @@
 
 This is a small demo project that automates the tests for [SwagLabs V1](https://www.saucedemo.com/v1/index.html) using the test automation framework [Playwright](https://playwright.dev/) with Typescript following POM(page object model)
 
-
 ## Test Structure
 
 ### `tests`
+
 The `tests` directory contains all the test files that can be executed.
 
 ```bash
@@ -16,6 +16,7 @@ The `tests` directory contains all the test files that can be executed.
 ```
 
 ### `pages`
+
 The `pages` directory holds the different page objects representing the Swaglabs UI. Each file includes selectors and actions for interacting with the respective page.
 
 ```bash
@@ -28,6 +29,7 @@ The `pages` directory holds the different page objects representing the Swaglabs
 ```
 
 ### `data`
+
 The `data` directory contains shared data such as user credentials and other information that can be used across different test files. Centralizing this data helps scale tests and improves manageability.
 
 ```bash
@@ -38,6 +40,7 @@ The `data` directory contains shared data such as user credentials and other inf
 ```
 
 ### `utils`
+
 The `utils` directory includes helper files and functions used throughout the tests, facilitating code reuse and maintenance.
 
 ```bash
@@ -48,6 +51,7 @@ The `utils` directory includes helper files and functions used throughout the te
 ```
 
 ### `playwright-report`
+
 The `playwright-report` directory contains the HTML reporter generated after a test run. This report provides a comprehensive overview of the test results, allowing you to filter by browsers, passed tests, failed tests, skipped tests, and flaky tests.
 
 ```bash
@@ -56,6 +60,7 @@ The `playwright-report` directory contains the HTML reporter generated after a t
 ```
 
 ### `playwright.config.ts`
+
 The `playwright.config.ts` file is the main configuration file for Playwright.
 
 ```bash
@@ -121,7 +126,7 @@ Set the `PLAYWRIGHT_HEADLESS` environment variable to `false` to run tests in he
 PLAYWRIGHT_HEADLESS=false npm run test:e2e
 ```
 
-> **Note:** Currently, tests are configured to run only in the `chromium` browser. Additional browsers can be added as needed.
+> **Note:** Currently, tests are configured to run only in the `chromium` browser. The steup for `firefox`, and `webkit` browser is also done in the config file but is commented. Please uncomment those lines if you want to run other browsers as well. One thing to note is depending on the operating system used extra host package installation might be necessary for correct browser to work
 
 ### 6. Run with a Single Worker
 
@@ -140,6 +145,7 @@ SLOW_MO=1000 PLAYWRIGHT_HEADLESS=false WORKERS=1 npm run test:e2e
 ```
 
 ### 8. View test report
+
 Playwright's built in test report tool is enabled that shows test report in `htlm`. The test report can be accesssed using
 
 ```bash
@@ -149,6 +155,20 @@ npx playwright show-report
 The test report would look something like this
 
 ![test report](testReport.png)
+
+### 9. Retry test
+
+The test retry in local execution is set to `0` but it can be enabled by the env var `RETRIES`
+
+```bash
+RETRIES=2 npm run test:e2e
+```
+
+## Test integration in CI
+
+This project is setup in [CI with github actions](https://github.com/SwikritiT/swaglabs-playwright/actions) 
+
+1. Here's a link to a build with tests passing in all the browsers, i.e: chromium, firefox, webkit https://github.com/SwikritiT/swaglabs-playwright/actions/runs/10105643012/job/27946461060#step:6:1
 
 
 ## Additional Information

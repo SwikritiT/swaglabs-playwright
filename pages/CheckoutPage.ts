@@ -1,13 +1,13 @@
 import { Page, Locator } from "@playwright/test"
 
 export class CheckoutPage {
-	private page: Page
-	private inputFirstName = "[data-test='firstName']"
-	private inputLastName = "[data-test='lastName']"
-	private inputPostalCode = "[data-test='postalCode']"
-	private checkoutButton = ".cart_button"
-	private orderConfirmationMessage = ".complete-text"
-	private pageSubHeader = ".subheader"
+	readonly page: Page
+	readonly inputFirstName = "[data-test='firstName']"
+	readonly inputLastName = "[data-test='lastName']"
+	readonly inputPostalCode = "[data-test='postalCode']"
+	readonly checkoutButton = ".cart_button"
+	readonly orderConfirmationMessage = ".complete-text"
+	readonly pageSubHeader = ".subheader"
 
 	constructor(page: Page) {
 		this.page = page

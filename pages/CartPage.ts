@@ -1,9 +1,9 @@
 import { Page, Locator } from "@playwright/test"
 
 export class CartPage {
-	private page: Page
-	private inventoryItemName = ".inventory_item_name"
-	private checkoutButton = ".checkout_button"
+	readonly page: Page
+	readonly inventoryItemName = ".inventory_item_name"
+	readonly checkoutButton = ".checkout_button"
 
 	constructor(page: Page) {
 		this.page = page
