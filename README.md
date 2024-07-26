@@ -166,10 +166,14 @@ RETRIES=2 npm run test:e2e
 
 ## Test integration in CI
 
-This project is setup in [CI with github actions](https://github.com/SwikritiT/swaglabs-playwright/actions) 
+This project is setup in [CI with github actions](https://github.com/SwikritiT/swaglabs-playwright/actions)
 
 1. Here's a link to a build with tests passing in all the browsers, i.e: chromium, firefox, webkit https://github.com/SwikritiT/swaglabs-playwright/actions/runs/10105643012/job/27946461060#step:6:1
+2. Test failure looks like this https://github.com/SwikritiT/swaglabs-playwright/actions/runs/10106286806/job/27948140172 and the report of the test fail can be downloaded at https://github.com/SwikritiT/swaglabs-playwright/actions/runs/10106286806/job/27948140172#step:7:20 and can be viewed locally by the command
 
+```
+npx playwright show-report
+```
 
 ## Additional Information
 
