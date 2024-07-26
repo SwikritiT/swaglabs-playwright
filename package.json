@@ -8,7 +8,7 @@
     "test:e2e:single": "playwright test"
   },
   "keywords": [],
-  "author": "",
+  "author": "Swikriti Tripathi",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.45.3",
