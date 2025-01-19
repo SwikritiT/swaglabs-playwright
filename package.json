@@ -1,19 +1,22 @@
 {
-  "name": "swaglabs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test:e2e": "playwright test ./tests/*.test.ts",
-    "test:e2e:single": "playwright test"
-  },
-  "keywords": [],
-  "author": "Swikriti Tripathi",
-  "license": "ISC",
-  "devDependencies": {
-    "@playwright/test": "^1.45.3",
-    "@types/node": "^20.14.12",
-    "allure-commandline": "^2.29.0",
-    "allure-playwright": "^3.0.0-beta.7"
-  }
+	"name": "swaglabs",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test:e2e": "playwright test ./tests/*.test.ts --reporter=list",
+		"test:e2e:headed": "playwright test ./tests/*.test.ts --headed --reporter=list --workers=1",
+		"test:e2e:single": "playwright test",
+		"test:e2e:playwright:report": "playwright show-report",
+		"test:e2e:allure:report": "allure serve allure-results"
+	},
+	"keywords": [],
+	"author": "Swikriti Tripathi",
+	"license": "ISC",
+	"devDependencies": {
+		"@playwright/test": "^1.45.3",
+		"@types/node": "^20.14.12",
+		"allure-commandline": "^2.29.0",
+		"allure-playwright": "^3.0.0-beta.7"
+	}
 }

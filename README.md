@@ -133,6 +133,12 @@ Set the `PLAYWRIGHT_HEADLESS` environment variable to `false` to run tests in he
 PLAYWRIGHT_HEADLESS=false npm run test:e2e
 ```
 
+or
+
+```bash
+npm run test:e2e:headed
+```
+
 > **Note:** Currently, tests are configured to run only in the `chromium` browser. The setup for `firefox`, and `webkit` browser is also done in the config file but is enabled only for CI. Please remove the check for CI if you want to run other browsers as well. One thing to note is depending on the operating system used extra host package installation might be necessary for correct browser to work
 
 ### 6. Run with a Single Worker
@@ -141,6 +147,12 @@ Playwright automatically assigns multiple workers based on the machine's capabil
 
 ```bash
 PLAYWRIGHT_HEADLESS=false WORKERS=1 npm run test:e2e
+```
+
+or
+
+```bash
+npm run test:e2e:headed
 ```
 
 ### 7. Run Tests in Headed Mode with Slow Motion
@@ -159,6 +171,12 @@ Playwright's built in test report tool is enabled that shows test report in `htm
 npx playwright show-report
 ```
 
+Or
+
+```bash
+npm run test:e2e:playwright:report
+```
+
 The test report would look something like this
 
 ![test report](testReport.png)
@@ -167,8 +185,14 @@ The test report would look something like this
 
 [Allure's playwright](https://allurereport.org/docs/playwright/) test reporter is also set-up which can be accessed with
 
-```
+```bash
 npx allure serve allure-results
+```
+
+Or
+
+```bash
+npm run test:e2e:allure:report
 ```
 
 The test report looks something like this
